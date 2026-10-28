@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Chester's Scroll of Honour</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+[hidden] { display: none !important; }
+html { background: var(--night); }
+body { margin: 0; background-repeat: no-repeat; }
+:root {
+  --night: #2e2443;
+  --ledger: #3a2e52;
+  --ink: #efe6d6;
+  --muted: #b5a8c4;
+  --pumpkin: #f2832b;
+  --glow: #ffc25c;
+  --line: #5c4b78;
+  --display: "Pirata One", "Times New Roman", serif;
+  --body: "Crimson Pro", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+body {
+  background: var(--night);
+  background-image:
+    radial-gradient(circle at 85% 6%, rgba(255,194,92,.22) 0 48px, transparent 120px),
+    radial-gradient(ellipse at 50% 120%, rgba(242,131,43,.16), transparent 60%);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.5;
+  min-height: 100%;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 48px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+main { max-width: 560px; margin: 0 auto; display: grid; gap: 24px; }
+header { text-align: center; display: grid; gap: 4px; justify-items: center; }
+.chester { width: 84px; height: 84px; }
+.chester .eyes { animation: glow 3.2s ease-in-out infinite; }
+@keyframes glow { 0%,100% { opacity: .8; filter: drop-shadow(0 0 1px #8dff7a); } 50% { opacity: 1; filter: drop-shadow(0 0 3.5px #8dff7a); } }
+.eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(44px, 12vw, 64px); line-height: 1; margin: 0; color: var(--pumpkin); text-shadow: 0 0 24px rgba(242,131,43,.35); text-wrap: balance; }
+button { font: inherit; cursor: pointer; }
+.ghost-btn { background: none; border: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 13px; padding: 6px 12px; border-radius: 8px; }
+.ghost-btn:hover { color: var(--ink); border-color: var(--muted); }
+.ghost-btn:focus-visible, .copy:focus-visible { outline: 2px solid var(--glow); outline-offset: 2px; }
+.copy { background: var(--pumpkin); color: var(--night); border: 0; border-radius: 8px; padding: 8px 18px; font-family: var(--mono); font-size: 14px; }
+.copy:hover { background: var(--glow); }
+.copy:disabled { background: var(--line); color: var(--muted); cursor: not-allowed; }
+footer { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; text-align: center; font-size: 22px; color: var(--muted); font-style: italic; }
+.pumpkin { width: 30px; height: 28px; flex: none; }
+html, body { overflow-x: clip; }
+.scroll { display: grid; gap: 10px; text-align: center; justify-items: center; padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--ledger); }
+.scroll h2 { font-family: var(--display); font-weight: 400; font-size: 30px; margin: 0; color: var(--glow); line-height: 1.1; }
+.scroll .sub { margin: 0; color: var(--muted); font-size: 16px; }
+.finders { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.finders li { border: 1px solid var(--line); border-radius: 99px; padding: 4px 14px; font-size: 18px; background: var(--night); }
+.finders li + li { border-top: 1px solid var(--line); }
+.finders .empty { border: 0; background: none; color: var(--muted); font-style: italic; }
+.chester { cursor: default; }
+.chester { width: 96px; height: 96px; }
+.scroll .sub { font-size: 18px; }
+.ftf { margin: 6px 0 2px; font-family: var(--display); font-size: 23px; line-height: 1.2; color: var(--glow); text-wrap: balance; }
+.ftf-label { color: var(--pumpkin); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+<main>
+  <header>
+    <svg class="chester" viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M46 54c8 0 12-6 10-12-1-4-5-5-7-3" fill="none" stroke="#2a1d3c" stroke-width="5" stroke-linecap="round"/>
+      <path d="M20 56c-3-8-2-17 4-23-2-3-3-6-3-10l-2-11 8 7c2-1 4-1 6 0l8-7-2 11c0 4-1 7-3 10 6 6 7 15 4 23z" fill="#2a1d3c" stroke="#8a67b5" stroke-width="1.4" stroke-linejoin="round"/>
+      <g class="eyes"><ellipse cx="27.5" cy="22" rx="2.6" ry="3.2" fill="#8dff7a"/><ellipse cx="36.5" cy="22" rx="2.6" ry="3.2" fill="#8dff7a"/></g>
+      <ellipse cx="27.5" cy="22" rx=".9" ry="2.4" fill="#1a0f24"/><ellipse cx="36.5" cy="22" rx=".9" ry="2.4" fill="#1a0f24"/>
+      <path d="M30.5 27l1.5 1.5 1.5-1.5z" fill="#ff7a9a"/>
+      <path d="M24 29l-8-1M24 31l-8 2M40 29l8-1M40 31l8 2" stroke="#8a67b5" stroke-width=".9"/>
+    </svg>
+    <span class="eyebrow">Chester's Tricks and Treats</span>
+    <h1>Chester's Scroll of Honour</h1>
+  </header>
+
+  <section class="scroll" aria-labelledby="scrollTitle">
+    <h2 id="scrollTitle">They braved every trick and claimed every treat!</h2>
+    <p class="sub">The scroll updates once a day.</p>
+    <p class="ftf" id="ftf" hidden><span class="ftf-label">First to Find:</span> <span id="ftfName"></span></p>
+    <ul class="finders" id="finders"><li class="empty">No names on the scroll yet.</li></ul>
+  </section>
+
+  <footer><span>Happy haunting from Chester.</span><svg class="pumpkin" viewBox="0 0 32 30" aria-hidden="true"><path d="M16 7c-1-3 0-5 2-6" fill="none" stroke="#5a8a3a" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="9.5" cy="18" rx="7.5" ry="10" fill="#e8741f"/><ellipse cx="22.5" cy="18" rx="7.5" ry="10" fill="#e8741f"/><ellipse cx="16" cy="18" rx="8" ry="11" fill="#f2832b"/><path d="M16 8v20M10 9.5c-2 5-2 12 0 17M22 9.5c2 5 2 12 0 17" fill="none" stroke="#c75f14" stroke-width="1" opacity=".7"/></svg></footer>
+</main>
+
+
+<script>
+const FINDERS_FILE = "finders.json";
+const findersEl = document.getElementById("finders");
+let finders = [];
+
+function renderFinders() {
+  findersEl.innerHTML = "";
+  const ftf = document.getElementById("ftf");
+  if (!finders.length) {
+    ftf.hidden = true;
+    const li = document.createElement("li"); li.className = "empty"; li.textContent = "No names on the scroll yet.";
+    findersEl.appendChild(li); return;
+  }
+  document.getElementById("ftfName").textContent = finders[0];
+  ftf.hidden = false;
+  finders.slice(1).forEach(n => { const li = document.createElement("li"); li.textContent = n; findersEl.appendChild(li); });
+}
+async function loadFinders() {
+  try {
+    const res = await fetch(FINDERS_FILE + "?t=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (Array.isArray(data)) { finders = data.filter(n => typeof n === "string"); renderFinders(); }
+  } catch (_) {}
+}
+loadFinders();
+
+</script>
+</body>
+</html>
