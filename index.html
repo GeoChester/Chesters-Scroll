@@ -173,6 +173,8 @@ footer { display: flex; justify-content: center; align-items: center; gap: 10px;
 
 <script>
 const CLAIM_ENDPOINT = "https://formsubmit.co/ajax/b251905bb2f9806acad9aee4dba19b40";
+const W3F_ENDPOINT = "https://api.web3forms.com/submit";
+const W3F_KEY = "82e2aef2-43cf-4ff7-bb91-d1198139a109";
 
 const caches = [
   "Riddle", "big and SMALL", "Shadow Theatre", "Spooky Potions", "Ghostsweeper",
@@ -241,15 +243,50 @@ function claimFields(name) {
   };
 }
 
-// If the quick background send is blocked, send the claim the classic way:
-// the browser goes to FormSubmit and comes straight back to this page.
+async function sendWeb3Forms(name) {
+  const fields = claimFields(name);
+  const res = await fetch(W3F_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify({
+      access_key: W3F_KEY,
+      subject: fields._subject,
+      from_name: "Chester's Halloween Bonus",
+      botcheck: fields._honey,
+      "Caching name": name,
+      "Request": fields["Request"],
+      "Caches checked": fields["Caches checked"]
+    })
+  });
+  let data = {};
+  try { data = await res.json(); } catch (_) {}
+  if (!res.ok || !data.success) throw new Error(data.message || ("status " + res.status));
+}
+
+async function sendFormSubmit(name) {
+  const res = await fetch(CLAIM_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify(claimFields(name))
+  });
+  let data = {};
+  try { data = await res.json(); } catch (_) {}
+  if (!res.ok || String(data.success) === "false") throw new Error(data.message || ("status " + res.status));
+}
+
+// Last resort: send the claim the classic way. The browser goes to Web3Forms
+// for a moment and comes straight back to this page.
 function classicSend(name) {
   const f = document.createElement("form");
   f.method = "POST";
-  f.action = CLAIM_ENDPOINT.replace("/ajax/", "/");
+  f.action = W3F_ENDPOINT;
   f.style.display = "none";
   const back = location.href.split("#")[0].split("?")[0] + "?claimed=1";
-  Object.entries({ ...claimFields(name), _next: back, _url: location.href.split("?")[0] }).forEach(([k, v]) => {
+  const fields = claimFields(name);
+  Object.entries({
+    access_key: W3F_KEY, subject: fields._subject, from_name: "Chester's Halloween Bonus",
+    redirect: back, "Caching name": name, "Request": fields["Request"], "Caches checked": fields["Caches checked"]
+  }).forEach(([k, v]) => {
     const i = document.createElement("input"); i.type = "hidden"; i.name = k; i.value = v; f.appendChild(i);
   });
   document.body.appendChild(f);
@@ -268,20 +305,11 @@ form.addEventListener("submit", async (e) => {
     err.hidden = false; wake.textContent = "Wake Chester"; wake.disabled = false;
     return;
   }
-  try {
-    const res = await fetch(CLAIM_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify(claimFields(name))
-    });
-    let data = {};
-    try { data = await res.json(); } catch (_) {}
-    if (!res.ok || String(data.success) === "false") throw new Error(data.message || ("status " + res.status));
-    wakeUp();
-  } catch (_) {
-    wake.textContent = "Still waking Chester…";
-    classicSend(name);
-  }
+  // two email services: if the first is down, the second takes over
+  try { await sendWeb3Forms(name); wakeUp(); return; } catch (_) {}
+  try { await sendFormSubmit(name); wakeUp(); return; } catch (_) {}
+  wake.textContent = "Still waking Chester…";
+  classicSend(name);
 });
 
 if (new URLSearchParams(location.search).get("claimed") === "1") {
