@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Chester's Scroll of Honour</title>
+<title>Halloween: Bonus!</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
@@ -42,40 +42,92 @@ body {
 main { max-width: 560px; margin: 0 auto; display: grid; gap: 24px; }
 header { text-align: center; display: grid; gap: 4px; justify-items: center; }
 .chester { width: 84px; height: 84px; }
+.sleeper { display: block; width: 180px; max-width: 100%; height: auto; mix-blend-mode: lighten; animation: breathe 5s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.02); } }
 .chester .eyes { animation: glow 3.2s ease-in-out infinite; }
 @keyframes glow { 0%,100% { opacity: .8; filter: drop-shadow(0 0 1px #8dff7a); } 50% { opacity: 1; filter: drop-shadow(0 0 3.5px #8dff7a); } }
 .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 h1 { font-family: var(--display); font-weight: 400; font-size: clamp(44px, 12vw, 64px); line-height: 1; margin: 0; color: var(--pumpkin); text-shadow: 0 0 24px rgba(242,131,43,.35); text-wrap: balance; }
+.intro { color: var(--muted); max-width: 42ch; margin: 4px 0 0; }
+
+.ledger { background: var(--ledger); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 16px; }
+.progress { display: grid; gap: 8px; }
+.progress-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.progress-label { font-family: var(--mono); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.count { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 15px; color: var(--glow); }
+.bar { height: 8px; background: var(--night); border-radius: 99px; overflow: hidden; border: 1px solid var(--line); }
+.bar span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--pumpkin), var(--glow)); transition: width .35s ease; }
+
+ul { list-style: none; margin: 0; padding: 0; display: grid; }
+li + li { border-top: 1px dashed var(--line); }
+label { display: flex; align-items: center; gap: 14px; padding: 10px 4px; cursor: pointer; border-radius: 8px; }
+label:hover { background: rgba(242,131,43,.06); }
+input[type="checkbox"] { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.box { flex: none; width: 26px; height: 26px; border: 2px solid var(--muted); border-radius: 7px; display: grid; place-items: center; transition: border-color .2s, background .2s; }
+.box svg { width: 16px; height: 16px; opacity: 0; transform: scale(.4); transition: opacity .2s, transform .2s; }
+input:checked + .box { border-color: var(--pumpkin); background: var(--pumpkin); }
+input:checked + .box svg { opacity: 1; transform: scale(1); }
+input:focus-visible + .box { outline: 2px solid var(--glow); outline-offset: 3px; }
+.name { font-size: 19px; }
+input:checked ~ .name { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--pumpkin); }
+
+.actions { display: flex; justify-content: flex-end; }
 button { font: inherit; cursor: pointer; }
 .ghost-btn { background: none; border: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 13px; padding: 6px 12px; border-radius: 8px; }
 .ghost-btn:hover { color: var(--ink); border-color: var(--muted); }
 .ghost-btn:focus-visible, .copy:focus-visible { outline: 2px solid var(--glow); outline-offset: 2px; }
+
+.vault { border-radius: 14px; padding: 22px 20px; text-align: center; display: grid; gap: 10px; justify-items: center; border: 2px dashed var(--line); color: var(--muted); }
+.vault h2 { font-family: var(--display); font-weight: 400; font-size: 32px; margin: 0; line-height: 1.1; }
+.vault p { margin: 0; }
+.vault .ask { font-size: 22px; color: var(--ink); max-width: 30ch; }
+.vault.open { border: 2px solid var(--glow); background: radial-gradient(circle at 50% 0%, rgba(255,194,92,.16), transparent 70%), var(--ledger); color: var(--ink); animation: rise .6s ease; }
+.vault.open h2 { color: var(--glow); }
+@keyframes rise { from { transform: translateY(8px); opacity: .4 } to { transform: none; opacity: 1 } }
+.coords { font-family: var(--mono); font-size: clamp(16px, 4.6vw, 22px); color: var(--ink); background: var(--night); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; user-select: all; word-break: break-word; }
 .copy { background: var(--pumpkin); color: var(--night); border: 0; border-radius: 8px; padding: 8px 18px; font-family: var(--mono); font-size: 14px; }
 .copy:hover { background: var(--glow); }
+.lock { width: 34px; height: 34px; }
+
+.claim { display: grid; gap: 10px; width: 100%; max-width: 360px; text-align: left; }
+.claim label { display: block; padding: 0; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); cursor: default; }
+.claim label:hover { background: none; }
+.claim input[type="text"] { font: inherit; font-size: 18px; width: 100%; box-sizing: border-box; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--night); color: var(--ink); }
+.claim input[type="text"]:focus-visible { outline: 2px solid var(--glow); outline-offset: 2px; }
 .copy:disabled { background: var(--line); color: var(--muted); cursor: not-allowed; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.note { font-size: 19px; font-style: italic; max-width: 40ch; }
+.err { color: var(--pumpkin); font-size: 15px; }
+.zzz { font-family: var(--display); font-size: 22px; color: var(--muted); letter-spacing: .1em; }
+html, body { overflow-x: clip; }
+.final { display: flex; justify-content: center; border-top: 1px solid var(--line); padding-top: 14px; }
+.final label { justify-content: center; text-align: left; }
+.final .name { font-size: 20px; font-weight: 600; }
+.final input:checked ~ .name { text-decoration: none; color: var(--glow); }
+.fx { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 50; will-change: transform, opacity; }
+.fx-ghost { width: 34px; height: 40px; filter: drop-shadow(0 0 8px rgba(239,230,214,.55)); }
+.fx-spider { width: 46px; height: 46px; }
+.fx-spider .legs-a, .fx-spider .legs-b { transform-origin: 23px 23px; transform-box: view-box; animation: skitter .12s linear infinite alternate; }
+.fx-spider .legs-b { animation-direction: alternate-reverse; }
+@keyframes skitter { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
+.rattle { animation: rattle .08s linear 9; }
+@keyframes rattle { 0% { transform: translate(0,0) rotate(0); } 25% { transform: translate(-2px,1px) rotate(-1.5deg); } 50% { transform: translate(2px,-1px) rotate(1.5deg); } 75% { transform: translate(-1px,-1px) rotate(-1deg); } 100% { transform: translate(1px,1px) rotate(1deg); } }
+
+
 footer { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; text-align: center; font-size: 22px; color: var(--muted); font-style: italic; }
 .pumpkin { width: 30px; height: 28px; flex: none; }
-html, body { overflow-x: clip; }
-.scroll { display: grid; gap: 10px; text-align: center; justify-items: center; padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--ledger); }
-.scroll h2 { font-family: var(--display); font-weight: 400; font-size: 30px; margin: 0; color: var(--glow); line-height: 1.1; }
-.scroll .sub { margin: 0; color: var(--muted); font-size: 16px; }
-.finders { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-.finders li { border: 1px solid var(--line); border-radius: 99px; padding: 4px 14px; font-size: 18px; background: var(--night); }
-.finders li + li { border-top: 1px solid var(--line); }
-.finders .empty { border: 0; background: none; color: var(--muted); font-style: italic; }
-.chester { cursor: default; }
-.chester { width: 96px; height: 96px; }
-.scroll .sub { font-size: 18px; }
-.ftf { margin: 6px 0 4px; padding: 10px 22px; max-width: 100%; box-sizing: border-box; font-family: var(--display); font-size: 23px; line-height: 1.2; color: var(--glow); text-wrap: balance; border: 2px solid var(--glow); border-radius: 14px; background: rgba(255,194,92,.08); box-shadow: 0 0 18px rgba(255,194,92,.25), inset 0 0 12px rgba(255,194,92,.08); overflow-wrap: anywhere; }
-.ftf-label { color: var(--pumpkin); }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
 </style>
 </head>
 <body>
 
 <main>
   <header>
-    <svg class="chester" viewBox="0 0 64 64" aria-hidden="true">
+    <img class="sleeper" id="sleepCat" src="data:image/webp;base64,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" alt="Chester curled up asleep" width="480" height="445">
+    <svg class="chester" id="awakeCat" viewBox="0 0 64 64" aria-hidden="true" hidden>
       <path d="M46 54c8 0 12-6 10-12-1-4-5-5-7-3" fill="none" stroke="#2a1d3c" stroke-width="5" stroke-linecap="round"/>
       <path d="M20 56c-3-8-2-17 4-23-2-3-3-6-3-10l-2-11 8 7c2-1 4-1 6 0l8-7-2 11c0 4-1 7-3 10 6 6 7 15 4 23z" fill="#2a1d3c" stroke="#8a67b5" stroke-width="1.4" stroke-linejoin="round"/>
       <g class="eyes"><ellipse cx="27.5" cy="22" rx="2.6" ry="3.2" fill="#8dff7a"/><ellipse cx="36.5" cy="22" rx="2.6" ry="3.2" fill="#8dff7a"/></g>
@@ -84,46 +136,359 @@ html, body { overflow-x: clip; }
       <path d="M24 29l-8-1M24 31l-8 2M40 29l8-1M40 31l8 2" stroke="#8a67b5" stroke-width=".9"/>
     </svg>
     <span class="eyebrow">Chester's Tricks and Treats</span>
-    <h1>Chester's Scroll of Honour</h1>
+    <h1>Halloween: Bonus!</h1>
   </header>
 
-  <section class="scroll" aria-labelledby="scrollTitle">
-    <h2 id="scrollTitle">They braved every trick and claimed every treat!</h2>
-    <p class="sub">The scroll updates once a day.</p>
-    <p class="ftf" id="ftf" hidden><span class="ftf-label">First to Find:</span> <span id="ftfName"></span></p>
-    <ul class="finders" id="finders"><li class="empty">No names on the scroll yet.</li></ul>
+  <section class="vault" id="vault" aria-live="polite">
+    <span class="zzz" aria-hidden="true">z z Z</span>
+    <h2>Chester sleeps now.</h2>
+    <p class="ask">Once you have found all Chester's Tricks and Treats, enter your caching name to wake Chester. If your name appears on his scroll, he will grant you access to the Bonus.</p>
+    <p class="note" id="vault-msg">The scroll updates once a day &ndash; allow time for verification.</p>
+    <form class="claim" id="claim" novalidate>
+      <label for="cacher">Your caching name</label>
+      <input type="text" id="cacher" name="cacher" autocomplete="nickname" maxlength="60" placeholder="e.g. NightOwl42" disabled>
+      <input type="text" class="hp" id="honey" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="copy" id="wake" type="submit" disabled>Wake Chester</button>
+      <p class="err" id="err" hidden></p>
+    </form>
   </section>
+
+  <section class="ledger" aria-label="Cache checklist">
+    <div class="progress">
+      <div class="progress-row">
+        <span class="progress-label">Caches found</span>
+        <span class="count" id="count" aria-live="polite">0 of 16</span>
+      </div>
+      <div class="bar"><span id="bar"></span></div>
+    </div>
+    <ul id="list"></ul>
+    <div class="final"><label for="allFound"><input type="checkbox" id="allFound"><span class="box"><svg viewBox="0 0 16 16" fill="none" stroke="#120d1c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span class="name">I found all Trick and Treat geocaches.</span></label></div>
+    <div class="actions"><button class="ghost-btn" id="clear" type="button">Clear all</button></div>
+  </section>
+
 
   <footer><span>Happy haunting from Chester.</span><svg class="pumpkin" viewBox="0 0 32 30" aria-hidden="true"><path d="M16 7c-1-3 0-5 2-6" fill="none" stroke="#5a8a3a" stroke-width="2.2" stroke-linecap="round"/><ellipse cx="9.5" cy="18" rx="7.5" ry="10" fill="#e8741f"/><ellipse cx="22.5" cy="18" rx="7.5" ry="10" fill="#e8741f"/><ellipse cx="16" cy="18" rx="8" ry="11" fill="#f2832b"/><path d="M16 8v20M10 9.5c-2 5-2 12 0 17M22 9.5c2 5 2 12 0 17" fill="none" stroke="#c75f14" stroke-width="1" opacity=".7"/></svg></footer>
 </main>
 
 
 <script>
-const FINDERS_FILE = "finders.json";
-const findersEl = document.getElementById("finders");
-let finders = [];
+const CLAIM_ENDPOINT = "https://formsubmit.co/ajax/b251905bb2f9806acad9aee4dba19b40";
 
-function renderFinders() {
-  findersEl.innerHTML = "";
-  const ftf = document.getElementById("ftf");
-  if (!finders.length) {
-    ftf.hidden = true;
-    const li = document.createElement("li"); li.className = "empty"; li.textContent = "No names on the scroll yet.";
-    findersEl.appendChild(li); return;
+const caches = [
+  "Riddle", "big and SMALL", "Shadow Theatre", "Spooky Potions", "Ghostsweeper",
+  "Midnight Pairs", "Lantern Night", "Coffin Lock", "Jar of Souls", "Skeleton Simon",
+  "Haunted Radio", "Moonbeam Mirrors", "Web Tangle", "Ghost Hunt", "The Witching Wheels",
+  "The Fogged Jar"
+].sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+
+const list = document.getElementById("list");
+const tick = '<svg viewBox="0 0 16 16" fill="none" stroke="#120d1c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg>';
+
+caches.forEach((name, i) => {
+  const li = document.createElement("li");
+  li.innerHTML = `<label for="c${i}"><input type="checkbox" id="c${i}"><span class="box">${tick}</span><span class="name"></span></label>`;
+  li.querySelector(".name").textContent = name;
+  list.appendChild(li);
+});
+
+const boxes = [...list.querySelectorAll("input")];
+const allFound = document.getElementById("allFound");
+const vault = document.getElementById("vault");
+const form = document.getElementById("claim");
+const nameInput = document.getElementById("cacher");
+const wake = document.getElementById("wake");
+const err = document.getElementById("err");
+let sent = false;
+
+function update() {
+  if (sent) return;
+  const found = boxes.filter(b => b.checked).length;
+  const total = boxes.length;
+  const all = found === total && allFound.checked;
+  document.getElementById("count").textContent = `${found} of ${total}`;
+  document.getElementById("bar").style.width = (found / total * 100) + "%";
+  nameInput.disabled = !all;
+  wake.disabled = !all || !nameInput.value.trim();
+  vault.classList.toggle("open", all);
+}
+
+function wakeUp() {
+  sent = true;
+  document.getElementById("sleepCat").hidden = true;
+  document.getElementById("awakeCat").hidden = false;
+  boxes.forEach(b => { b.checked = true; b.disabled = true; });
+  allFound.checked = true; allFound.disabled = true;
+  document.getElementById("clear").disabled = true;
+  document.getElementById("count").textContent = `${boxes.length} of ${boxes.length}`;
+  document.getElementById("bar").style.width = "100%";
+  vault.classList.add("open");
+  vault.innerHTML = `
+    <span class="zzz" aria-hidden="true">· · ·</span>
+    <h2>Chester is awake!</h2>
+    <p>Chester will review his scroll to verify your submission.</p>
+    <p>You will receive a Certitude password.</p>`;
+}
+
+function claimFields(name) {
+  return {
+    _subject: `Halloween bonus claim: ${name}`,
+    _template: "table",
+    _captcha: "false",
+    _honey: document.getElementById("honey").value,
+    "Caching name": name,
+    "Request": `${name} wants to claim the Halloween bonus.`,
+    "Caches checked": caches.join(", ")
+  };
+}
+
+// If the quick background send is blocked, send the claim the classic way:
+// the browser goes to FormSubmit and comes straight back to this page.
+function classicSend(name) {
+  const f = document.createElement("form");
+  f.method = "POST";
+  f.action = CLAIM_ENDPOINT.replace("/ajax/", "/");
+  f.style.display = "none";
+  const back = location.href.split("#")[0].split("?")[0] + "?claimed=1";
+  Object.entries({ ...claimFields(name), _next: back, _url: location.href.split("?")[0] }).forEach(([k, v]) => {
+    const i = document.createElement("input"); i.type = "hidden"; i.name = k; i.value = v; f.appendChild(i);
+  });
+  document.body.appendChild(f);
+  f.submit();
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const name = nameInput.value.trim();
+  if (!name || boxes.some(b => !b.checked) || !allFound.checked) return;
+  err.hidden = true;
+  wake.disabled = true;
+  wake.textContent = "Waking Chester…";
+  if (location.protocol === "file:") {
+    err.textContent = "Chester can only be woken from the real web page. Open the page from your GitHub address, not as a file on your computer.";
+    err.hidden = false; wake.textContent = "Wake Chester"; wake.disabled = false;
+    return;
   }
-  document.getElementById("ftfName").textContent = finders[0];
-  ftf.hidden = false;
-  finders.slice(1).forEach(n => { const li = document.createElement("li"); li.textContent = n; findersEl.appendChild(li); });
-}
-async function loadFinders() {
   try {
-    const res = await fetch(FINDERS_FILE + "?t=" + Date.now(), { cache: "no-store" });
-    if (!res.ok) return;
-    const data = await res.json();
-    if (Array.isArray(data)) { finders = data.filter(n => typeof n === "string"); renderFinders(); }
-  } catch (_) {}
+    const res = await fetch(CLAIM_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(claimFields(name))
+    });
+    let data = {};
+    try { data = await res.json(); } catch (_) {}
+    if (!res.ok || String(data.success) === "false") throw new Error(data.message || ("status " + res.status));
+    wakeUp();
+  } catch (_) {
+    wake.textContent = "Still waking Chester…";
+    classicSend(name);
+  }
+});
+
+if (new URLSearchParams(location.search).get("claimed") === "1") {
+  wakeUp();
+  history.replaceState(null, "", location.pathname);
 }
-loadFinders();
+
+nameInput.addEventListener("input", update);
+boxes.forEach(b => b.addEventListener("change", update));
+allFound.addEventListener("change", update);
+document.getElementById("clear").addEventListener("click", () => { boxes.forEach(b => b.checked = false); allFound.checked = false; update(); });
+// ---------- Effects for special caches ----------
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let actx = null;
+function audio() {
+  try {
+    if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+    if (actx.state === "suspended") actx.resume();
+    return actx;
+  } catch (_) { return null; }
+}
+function noiseBuf(ac, secs, curve) {
+  const len = Math.floor(ac.sampleRate * secs);
+  const buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, curve);
+  return buf;
+}
+
+// Wavering "wooo"; called once on release and again as the ghost flees.
+function ghostSound(len = 2.6, peak = 0.12) {
+  const ac = audio(); if (!ac) return;
+  const t = ac.currentTime, out = ac.createGain();
+  out.gain.setValueAtTime(0, t);
+  out.gain.linearRampToValueAtTime(peak, t + 0.35);
+  out.gain.linearRampToValueAtTime(peak * 0.7, t + len * 0.6);
+  out.gain.exponentialRampToValueAtTime(0.0001, t + len);
+  const lp = ac.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 1400;
+  out.connect(lp).connect(ac.destination);
+  const lfo = ac.createOscillator(), lfoGain = ac.createGain();
+  lfo.frequency.value = 5; lfoGain.gain.value = 24; lfo.connect(lfoGain);
+  [0, 7].forEach(detune => {
+    const o = ac.createOscillator(); o.type = "sine"; o.detune.value = detune;
+    o.frequency.setValueAtTime(320, t);
+    o.frequency.linearRampToValueAtTime(560, t + len * 0.25);
+    o.frequency.linearRampToValueAtTime(430, t + len * 0.6);
+    o.frequency.linearRampToValueAtTime(290, t + len);
+    lfoGain.connect(o.frequency); o.connect(out); o.start(t); o.stop(t + len + 0.1);
+  });
+  lfo.start(t); lfo.stop(t + len + 0.1);
+}
+
+// Dry bone clicks with hollow knocks, spread over `secs`.
+function boneSound(secs = 2.6) {
+  const ac = audio(); if (!ac) return;
+  const buf = noiseBuf(ac, 0.04, 6);
+  let t = ac.currentTime; const end = t + secs;
+  let i = 0;
+  while (t < end) {
+    const fade = 1 - (t - ac.currentTime) / secs * 0.6;
+    const src = ac.createBufferSource(); src.buffer = buf;
+    const bp = ac.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 7;
+    bp.frequency.value = 900 + Math.random() * 2600;
+    const g = ac.createGain(); g.gain.value = (0.35 + Math.random() * 0.45) * fade;
+    src.connect(bp).connect(g).connect(ac.destination); src.start(t);
+    if (i % 3 === 0) {
+      const o = ac.createOscillator(), og = ac.createGain();
+      o.type = "triangle"; o.frequency.value = 170 + Math.random() * 140;
+      og.gain.setValueAtTime(0.11 * fade, t); og.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
+      o.connect(og).connect(ac.destination); o.start(t); o.stop(t + 0.08);
+    }
+    t += 0.025 + Math.random() * 0.06; i++;
+  }
+}
+
+// Tiny leg ticks; returns a function that plays one tick.
+function skitterTick() {
+  const ac = audio(); if (!ac) return;
+  if (!skitterTick.buf) skitterTick.buf = noiseBuf(ac, 0.012, 1);
+  const src = ac.createBufferSource(); src.buffer = skitterTick.buf;
+  const hp = ac.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 3000;
+  const g = ac.createGain(); g.gain.value = 0.05;
+  src.connect(hp).connect(g).connect(ac.destination); src.start();
+}
+
+// Shared mover: wanders inside the screen for WANDER ms, then runs off the nearest edge.
+const WANDER = 5600;
+const angDiff = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b));
+function wanderer(el, w, h, startX, startY, opts) {
+  document.body.appendChild(el);
+  let x = startX, y = startY, heading = Math.random() * Math.PI * 2, speed = opts.speed;
+  let pause = 0, fleeing = false, fleeDir = null, t0 = performance.now(), last = t0, tick = 0;
+  function step(now) {
+    const dt = Math.min(50, now - last) / 16.67; last = now; tick++;
+    const age = now - t0;
+    const W = window.innerWidth, H = window.innerHeight;
+    if (!fleeing && age > WANDER) {
+      fleeing = true;
+      const cx = x + w / 2, cy = y + h / 2;
+      const d = [[cx, -1, 0], [W - cx, 1, 0], [cy, 0, -1], [H - cy, 0, 1]].sort((a, b) => a[0] - b[0])[0];
+      fleeDir = Math.atan2(d[2], d[1]);
+      opts.onFlee && opts.onFlee();
+    }
+    if (fleeing) {
+      heading += angDiff(fleeDir, heading) * 0.15 + (Math.random() - 0.5) * opts.jitter * 0.3;
+      speed = Math.min(speed + 0.35 * dt, opts.fleeSpeed);
+    } else if (pause > 0) {
+      pause -= dt;
+    } else {
+      heading += (Math.random() - 0.5) * opts.jitter;
+      if (Math.random() < opts.swerve) heading += (Math.random() - 0.5) * Math.PI * 1.4;
+      if (opts.pauses && Math.random() < 0.012) pause = 20 + Math.random() * 40;
+      // steer back in when near an edge
+      const m = 30;
+      if (x < m || x > W - w - m || y < m || y > H - h - m) {
+        const toCenter = Math.atan2(H / 2 - (y + h / 2), W / 2 - (x + w / 2));
+        heading += angDiff(toCenter, heading) * 0.2;
+      }
+    }
+    const moving = fleeing || pause <= 0;
+    if (moving) {
+      x += Math.cos(heading) * speed * dt; y += Math.sin(heading) * speed * dt;
+      opts.onMove && opts.onMove(tick);
+    }
+    opts.render(el, x, y, heading, age, fleeing, moving);
+    if (fleeing && (x < -w - 40 || x > W + 40 || y < -h - 40 || y > H + 40)) { el.remove(); return; }
+    if (age > WANDER + 8000) { el.remove(); return; }
+    requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+const GHOST_SVG = '<svg class="fx fx-ghost" viewBox="0 0 34 40" aria-hidden="true"><path d="M17 2C9 2 3 8 3 17v19l5-4 4.5 4 4.5-4 4.5 4 4.5-4 5 4V17C31 8 25 2 17 2z" fill="#efe6d6" fill-opacity=".92"/><ellipse cx="12.5" cy="16" rx="2.4" ry="3.2" fill="#120d1c"/><ellipse cx="21.5" cy="16" rx="2.4" ry="3.2" fill="#120d1c"/><ellipse cx="17" cy="24" rx="3" ry="3.6" fill="#120d1c"/></svg>';
+
+function releaseGhost(fromEl) {
+  ghostSound(2.8, 0.12);
+  if (reduceMotion) return;
+  const r = fromEl.getBoundingClientRect();
+  const wrap = document.createElement("div"); wrap.innerHTML = GHOST_SVG;
+  wanderer(wrap.firstChild, 34, 40, r.left + r.width / 2 - 17, r.top + r.height / 2 - 20, {
+    speed: 2.1, fleeSpeed: 11, jitter: 0.5, swerve: 0.02, pauses: false,
+    onFlee: () => ghostSound(1.8, 0.09),
+    render: (el, x, y, hd, age, fleeing) => {
+      const grow = Math.min(1, 0.3 + age / 500);
+      const bob = Math.sin(age / 260) * 4;
+      el.style.transform = `translate(${x}px, ${y + bob}px) rotate(${Math.cos(hd) * 14}deg) scale(${grow})`;
+      el.style.opacity = fleeing ? 0.85 : 0.95 + Math.sin(age / 400) * 0.05;
+    }
+  });
+}
+
+const SPIDER_SVG = '<svg class="fx fx-spider" viewBox="0 0 46 46" aria-hidden="true"><g stroke="#0b0812" stroke-width="2" stroke-linecap="round" fill="none"><g class="legs-a"><path d="M20 18l-6-8-5 2M20 22l-9-3-5 3M26 18l6-8 5 2M26 22l9-3 5 3"/></g><g class="legs-b"><path d="M20 25l-8 3-4 6M21 28l-5 7-1 6M26 25l8 3 4 6M25 28l5 7 1 6"/></g></g><ellipse cx="23" cy="30" rx="7" ry="9" fill="#1a1222" stroke="#a99bb8" stroke-width="1"/><circle cx="23" cy="18" r="5" fill="#1a1222" stroke="#a99bb8" stroke-width="1"/><circle cx="21.3" cy="16.4" r="1" fill="#f2832b"/><circle cx="24.7" cy="16.4" r="1" fill="#f2832b"/><path d="M23 26l-2 3 2 3 2-3z" fill="#f2832b" opacity=".8"/></svg>';
+
+function sendSpider(fromEl) {
+  audio();
+  const r = fromEl.getBoundingClientRect();
+  if (reduceMotion) { for (let i = 0; i < 12; i++) setTimeout(skitterTick, i * 60); return; }
+  const wrap = document.createElement("div"); wrap.innerHTML = SPIDER_SVG;
+  const spider = wrap.firstChild;
+  const legParts = spider.querySelectorAll(".legs-a,.legs-b");
+  wanderer(spider, 46, 46, r.left + r.width / 2 - 23, r.top + r.height / 2 - 23, {
+    speed: 2.4, fleeSpeed: 13, jitter: 0.35, swerve: 0.015, pauses: true,
+    onMove: (tick) => { if (tick % 4 === 0 && Math.random() < 0.8) skitterTick(); },
+    render: (el, x, y, hd, age, fleeing, moving) => {
+      legParts.forEach(l => l.style.animationPlayState = moving ? "running" : "paused");
+      el.style.transform = `translate(${x}px, ${y}px) rotate(${hd * 180 / Math.PI + 90}deg)`;
+    }
+  });
+}
+
+const BONE_SVG = '<svg viewBox="0 0 26 12" aria-hidden="true"><path d="M5 3.2a2.6 2.6 0 1 1 1.6 3.6h12.8a2.6 2.6 0 1 1 1.6 2 2.6 2.6 0 1 1-1.6-3.6H6.6A2.6 2.6 0 1 1 5 3.2z" fill="#efe6d6"/></svg>';
+
+function rattleBones(labelEl) {
+  boneSound(2.8);
+  if (reduceMotion) return;
+  labelEl.classList.remove("rattle"); void labelEl.offsetWidth; labelEl.classList.add("rattle");
+  setTimeout(() => labelEl.classList.remove("rattle"), 900);
+  const W = window.innerWidth, H = window.innerHeight;
+  for (let i = 0; i < 28; i++) {
+    setTimeout(() => {
+      const wrap = document.createElement("div"); wrap.innerHTML = BONE_SVG;
+      const b = wrap.firstChild; b.setAttribute("class", "fx fx-bone");
+      const size = 22 + Math.random() * 22;
+      b.style.width = size + "px"; b.style.height = size * 12 / 26 + "px";
+      document.body.appendChild(b);
+      let x = Math.random() * (W - size), y = -30, vy = 2 + Math.random() * 2.5, vx = (Math.random() - 0.5) * 1.2;
+      let rot = Math.random() * 360, vr = (Math.random() - 0.5) * 14, last = performance.now();
+      (function fall(now) {
+        const dt = Math.min(50, now - last) / 16.67; last = now;
+        vy += 0.09 * dt; x += vx * dt; y += vy * dt; rot += vr * dt;
+        b.style.transform = `translate(${x}px, ${y}px) rotate(${rot}deg)`;
+        if (y > H + 30) { b.remove(); return; }
+        requestAnimationFrame(fall);
+      })(last);
+    }, i * 90 + Math.random() * 60);
+  }
+}
+
+const effects = { "Jar of Souls": releaseGhost, "Web Tangle": sendSpider, "Skeleton Simon": rattleBones };
+boxes.forEach((b, i) => {
+  const fx = effects[caches[i]];
+  if (!fx) return;
+  b.addEventListener("change", () => {
+    if (!b.checked) return;
+    const label = b.closest("label");
+    fx(caches[i] === "Skeleton Simon" ? label : label.querySelector(".box"));
+  });
+});
 
 </script>
 </body>
