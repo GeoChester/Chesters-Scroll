@@ -159,7 +159,7 @@ def main():
     d.rounded_rectangle((pad, card_top, W - pad, card_bottom), radius=14 * S, fill=LEDGER, outline=LINE, width=S)
     for i, line in enumerate(sub_lines):
         center(line, sub_f, sub_y + i * 34 * S, GLOW)
-    center("The scroll updates once a day.", note_f, note_y, MUTED)
+    center("", note_f, note_y, MUTED)
     if ftf_text:
         a, b = ftf_text
         f = ftf_f
